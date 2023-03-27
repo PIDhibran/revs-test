@@ -19,7 +19,7 @@ export class SigninComponent {
     private router: Router
   ) {
     if(authService.isLogged()){
-
+      this.router.navigate(['/dashboard']);
     }
     this.createForm();
   }
@@ -37,13 +37,18 @@ export class SigninComponent {
     if(this.form.valid){
       const email = this.form.get('email')?.value;
       const password = this.form.get('password')?.value;
-
       this.validInput = this.authService.verifyUser(email, password);
 
-      if(this.validInput){
-        this.router.navigate(['/dashboard'])
+
+      if(!this.validInput){
+        // this.validInput = false;
+        this.router.navigate(['/dashboard']);
       }
     }
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
 }

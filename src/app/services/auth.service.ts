@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 })
 
 export class AuthService {
-  private logged = new BehaviorSubject<boolean>(false);
+  // private logged = new BehaviorSubject<boolean>(false);
 
 
   constructor(
@@ -22,24 +22,28 @@ export class AuthService {
     // APi
     //
     if ( email === "pavelmontes@gmail.com" && password === "pavel12345"){
-      this.logged.next(true);
+      // this.logged.next(true);
       localStorage.setItem('isLoggedIn', 'true');
-      return true;
+      return false;
+    }
+    return true;
+  }
+
+  logout() {
+    // this.logged.next(false);
+    localStorage.removeItem('isLoggedIn');
+    this.router.navigate(['/signin'])
+  }
+
+
+
+  isLogged(){
+    const user = localStorage.getItem('isLoggedIn')
+    if (user){
+      return true
     }
     return false;
   }
 
-  logout() {
-    this.logged.next(false);
-    localStorage.removeItem('isLoggedIn');
-  }
 
-
-  isLogged(){
-    return this.logged.asObservable();
-  }
-
-  private loging(){
-    // Request API
-  }
 }

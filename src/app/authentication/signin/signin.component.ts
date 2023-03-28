@@ -39,7 +39,6 @@ export class SigninComponent {
       const password = this.form.get('password')?.value;
       this.validInput = this.authService.verifyUser(email, password);
 
-
       if(!this.validInput){
         // this.validInput = false;
         this.router.navigate(['/dashboard']);

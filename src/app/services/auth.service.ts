@@ -32,7 +32,7 @@ export class AuthService {
   logout() {
     // this.logged.next(false);
     localStorage.removeItem('isLoggedIn');
-    this.router.navigate(['/signin'])
+    this.router.navigate(['/auth/signin'])
   }
 
 

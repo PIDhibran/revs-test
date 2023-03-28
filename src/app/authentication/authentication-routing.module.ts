@@ -20,7 +20,7 @@ const routes: Routes = [
     component: SignupComponent,
   },
   {
-    path: 'auth',
+    path: 'double',
     component: DoubleAuthComponent
 
   },

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Auth } from 'aws-amplify';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,9 +10,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./signin.component.sass']
 })
 export class SigninComponent {
-  public form: FormGroup = new FormGroup('');
-  public validEmail: boolean | undefined = false;
-  public validInput: boolean | undefined = false;
+  form: FormGroup = new FormGroup('');
+  validEmail: boolean | undefined = false;
+  validInput: boolean | undefined = false;
+  user: User | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +35,7 @@ export class SigninComponent {
 
   submitForm() {
     this.validEmail = this.form.get('email')?.invalid;
-
+    // Si el usuario es valido
     if(this.form.valid){
       const email = this.form.get('email')?.value;
       const password = this.form.get('password')?.value;
@@ -41,8 +43,17 @@ export class SigninComponent {
 
       if(!this.validInput){
         // this.validInput = false;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['auth/double']);
       }
+    }
+  }
+
+  async signIn(){
+    try {
+      const user = await Auth.signIn(this.email, this.password);
+      console.log(user);
+    } catch (error) {
+      console.log('Error signing in:', error);
     }
   }
 

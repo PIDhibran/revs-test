@@ -23,10 +23,18 @@ export class AuthService {
     //
     if ( email === "pavelmontes@gmail.com" && password === "pavel12345"){
       // this.logged.next(true);
-      localStorage.setItem('isLoggedIn', 'true');
+      // localStorage.setItem('isLoggedIn', 'false');
       return false;
     }
     return true;
+  }
+
+  verifyTokenDoubleAuth(token: string){
+    if(token === '123'){
+      localStorage.setItem('isLoggedIn', 'true');
+      return true;
+    }
+    return false;
   }
 
   logout() {

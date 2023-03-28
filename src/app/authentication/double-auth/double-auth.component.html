@@ -1,1 +1,10 @@
-<p>double-auth works!</p>
+<main>
+  <form [formGroup]="form"  (ngSubmit)="submitForm()">
+    <label>
+      Send code:
+      <input type="text" formControlName="token">
+      <p *ngIf="invalidToken">Tu codigo es incorrecto</p>
+    </label>
+    <button type="submit">Send</button>
+  </form>
+</main>

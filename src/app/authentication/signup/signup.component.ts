@@ -55,9 +55,9 @@ export class SignupComponent{
 
       this.newUser = this.saveCreatedUser(username, email, password);
 
-      this.authService.signIn(username, email, password)
+      this.authService.signIn(username, email, password);
 
-      console.log(this.newUser);
+      // console.log(this.newUser);
     }
   }
 

@@ -22,7 +22,6 @@ const routes: Routes = [
   {
     path: 'double',
     component: DoubleAuthComponent
-
   },
   {
     path:'**',

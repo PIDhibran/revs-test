@@ -26,6 +26,7 @@ export class AuthService {
           email
         },
       });
+      console.log("enviado");
       console.log(user);
     } catch (error) {
       console.log('Error signing in:', error);

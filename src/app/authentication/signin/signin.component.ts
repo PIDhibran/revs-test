@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -48,14 +49,14 @@ export class SigninComponent {
     }
   }
 
-  async signIn(){
-    try {
-      const user = await Auth.signIn(this.email, this.password);
-      console.log(user);
-    } catch (error) {
-      console.log('Error signing in:', error);
-    }
-  }
+  // async signIn(){
+  //   try {
+  //     const user = await Auth.signIn(this.email, this.password);
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.log('Error signing in:', error);
+  //   }
+  // }
 
   logout(){
     this.authService.logout();

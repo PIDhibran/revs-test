@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
  import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CreateUser, NewUser, User } from 'src/app/models/user.model';
+import { NewUser, User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -55,30 +55,16 @@ export class SignupComponent{
 
       this.newUser = this.saveCreatedUser(username, email, password);
 
-      try {
-        this.newUser = await Auth.signUp({
-          username,
-          password,
-          attributes:{
-            email
-          },
-          autoSignIn: { // optional - enables auto sign in after user is confirmed
-            enabled: true,
-          },
-        })
-        console.log('successfull');
-      } catch (error) {
-        console.log('error signing up:', error);
-      }
+      this.authService.signIn(username, email, password)
 
-      console.log(this.createdUser);
+      console.log(this.newUser);
     }
   }
 
 
 
-  private saveCreatedUser(username:string, email:string, password:string): CreateUser{
-    const newUser = {
+  private saveCreatedUser(username:string, email:string, password:string): NewUser{
+    const newUser: NewUser = {
       username: username,
       email: email,
       password: password

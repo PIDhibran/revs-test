@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { Auth } from 'aws-amplify';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,20 @@ export class AuthService {
     private router: Router
   ) { }
 
+  async signIn(username:string, email: string,  password:string ){
+    try {
+      const user = await Auth.signUp({
+        username,
+        password,
+        attributes: {
+          email
+        },
+      });
+      console.log(user);
+    } catch (error) {
+      console.log('Error signing in:', error);
+    }
+  }
 
   verifyUser(email: string, password: string) {
     // aquí debes agregar la lógica para autenticar al usuario7

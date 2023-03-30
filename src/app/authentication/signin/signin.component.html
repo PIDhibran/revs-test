@@ -1,10 +1,10 @@
 <main>
   <h2 class="title">Sign in</h2>
   <p>Need a acount? <a routerLink="/auth/signup">Sign up</a> </p>
-  <form [formGroup]="signInForm" (ngSubmit)="submitForm()">
+  <form [formGroup]="signInForm" (ngSubmit)="submitSignInForm()">
     <label>
       Email:
-      <input type="text" formControlName="email">
+      <input type="text" formControlName="username">
       <span *ngIf="validEmail">Please enter a valid email address</span>
     </label>
     <label>

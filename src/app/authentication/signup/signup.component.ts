@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./signup.component.sass']
 })
 export class SignupComponent{
-  form: FormGroup =  new FormGroup("");
+  formSignUp: FormGroup =  new FormGroup("");
   validName: boolean = false;
   validEmail: boolean = false;
   validPassword: boolean = false;
@@ -28,7 +28,7 @@ export class SignupComponent{
   }
 
   createForm() {
-    this.form = this.fb.group({
+    this.formSignUp = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -36,6 +36,7 @@ export class SignupComponent{
     },);
   }
 
+  // Verificar porque no jala este validador
   private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password =  control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
@@ -46,18 +47,13 @@ export class SignupComponent{
     return null;
   }
 
-  async submitForm(){
-    if(this.form.valid){
-      const username = this.form.get('username')?.value;
-      const email = this.form.get('email')?.value;
-      const password = this.form.get('password')?.value;
+  submitSignUpForm(){
+    if(this.formSignUp.valid){
+      const username = this.formSignUp.get('username')?.value;
+      const email = this.formSignUp.get('email')?.value;
+      const password = this.formSignUp.get('password')?.value;
 
       this.authService.signUp(username, email, password);
     }
   }
-
-
-
-
-
 }

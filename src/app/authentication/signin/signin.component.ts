@@ -29,33 +29,17 @@ export class SigninComponent {
 
   createForm() {
     this.signInForm = this.fb.group({
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  submitForm() {
-    this.validEmail = this.signInForm.get('email')?.invalid;
+  submitSignInForm() {
+    this.validEmail = this.signInForm.get('username')?.invalid;
     if(this.signInForm.valid){
-      const email = this.signInForm.get('email')?.value;
+      const username = this.signInForm.get('username')?.value;
       const password = this.signInForm.get('password')?.value;
-      this.authService.signIn(email, password)
-      .subscribe(
-        (user) => {
-          console.log(user);
-          this.authService.setLogged(true);
-
-          // if(this.authService.isEmailVerify()){
-          //   this.router.navigate(['auth/double'])
-          // } else {
-          //   this.router.navigate(['auth/verification']);
-          // }
-          this.router.navigate(['dashboard']);
-        },
-        (error) => {
-          this.invalidInput = true ;
-        }
-      );
+      this.authService.signIn(username, password);
     } else {
       console.log("Usuario invalido");
     }

@@ -13,15 +13,14 @@ export class AuthService {
   private logged: boolean = false;
   private emailVerified: boolean = false;
   private user: User |  null = null ;
-  userExists = false;
-
+  userExists:boolean = false;
 
   constructor(
     private router: Router
   ) { }
 
   // SignUp
-  async signUp(username:string, email: string, password:string ){
+  async signUp(username:string, email: string, password:string){
     try {
       const user = await Auth.signUp({
         username,
@@ -42,61 +41,39 @@ export class AuthService {
   }
 
   // SignIn
-  signIn(email:string, password:string): Observable<string> {
-    return new Observable(observer => {
-      Auth.signIn(email, password).then(
-        (response) => {
-          this.logged = true;
-          console.log(response);
-          this.user = this.saveUser(response);
+  async signIn(username:string, password:string) {
+    // debugger
 
-          observer.next('success');
-          observer.complete();
-        },
-        (error) => {
-          this.logged = false;
-          observer.error(error);
-        }
-      );
-    });
+    try {
+      console.log(username);
+      console.log(password);
+      const user = await Auth.signIn(username, password);
+
+      this.logged = true;
+      this.user = this.saveUser(user);
+      this.router.navigate(['/dashboard']);
+
+    } catch (error) {
+      console.log('error signing in', error);
+    }
   }
 
   saveUser(response:any):User{
-    // console.log("username", response.username);
-    // console.log("email", response.attributes.email);
     const newUser: User =  {
       username: response.username,
       email: response.attributes.email
     }
-
     this.emailVerified = response.attributes.email_verified;
 
     return newUser;
-    // console.log("verify:", response.attributes.email_verified);
   }
 
-  saveNewUser(user:any):User{
+  saveNewUser(response:any):User{
     const newUser: User =  {
-      username: user.user.username
+      username: response.user.username
     }
-
     return newUser;
   }
-
-  // validateUser(username:string, code:string): Observable<string> {
-  //   return new Observable( observer => {
-  //     Auth.confirmSignUp(username, code).then(
-  //       (response) => {
-  //         console.log(response);
-  //         observer.next('success');
-  //         observer.complete();
-  //       },
-  //       (error) => {
-  //         observer.error(error);
-  //       }
-  //     )
-  //   });
-  // }
 
   async confirmVerification(code:string) {
     console.log(this.user);
@@ -129,28 +106,12 @@ export class AuthService {
   }
 
 
-
-  verifyTokenDoubleAuth(token: string){
-    if(token === '123'){
-
-      return true;
-    }
-    return false;
-  }
-
   getUser(){
     return this.user;
   }
 
   async signOut() {
-    // this.logged.next(false);
-    // localStorage.removeItem('isLoggedIn');
-    // try {
-    //   Auth.signOut(user, password)
-    // } catch (error) {
-
-    // }
-
+    this.user = null;
     this.router.navigate(['/auth/signin'])
   }
 

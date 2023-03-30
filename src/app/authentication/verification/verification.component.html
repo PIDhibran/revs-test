@@ -1,0 +1,11 @@
+<main>
+  <form [formGroup]="verifyForm" (ngSubmit)="submitForm()">
+    <label>
+      Enter your verification code:
+      <input type="text" formControlName="code">
+      <p *ngIf="tokenInvalid">Tu codigo es incorrecto</p>
+    </label>
+    <button type="submit">Send</button>
+  </form>
+  <button (click)="resendCode()">Resend code</button>
+</main>

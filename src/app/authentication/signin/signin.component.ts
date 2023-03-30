@@ -7,13 +7,13 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signin',
-  templateUrl: './signin.component.html',
+templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.sass']
 })
 export class SigninComponent {
-  form: FormGroup = new FormGroup('');
+  signInForm: FormGroup = new FormGroup('');
   validEmail: boolean | undefined = false;
-  validInput: boolean | undefined = false;
+  invalidInput: boolean | undefined = false;
   user: User | null = null;
 
   constructor(
@@ -21,45 +21,43 @@ export class SigninComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    if(authService.isLogged()){
+    if(authService.isLogged() && authService.isEmailVerify()){
       this.router.navigate(['/dashboard']);
     }
     this.createForm();
   }
 
   createForm() {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+    this.signInForm = this.fb.group({
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   submitForm() {
-    this.validEmail = this.form.get('email')?.invalid;
-    // Si el usuario es valido
-    if(this.form.valid){
-      const email = this.form.get('email')?.value;
-      const password = this.form.get('password')?.value;
-      this.validInput = this.authService.verifyUser(email, password);
+    this.validEmail = this.signInForm.get('email')?.invalid;
+    if(this.signInForm.valid){
+      const email = this.signInForm.get('email')?.value;
+      const password = this.signInForm.get('password')?.value;
+      this.authService.signIn(email, password)
+      .subscribe(
+        (user) => {
+          debugger
+          console.log(user);
+          this.authService.setLogged(true);
+          if(this.authService.isEmailVerify()){
+            this.router.navigate(['auth/double'])
+          } else {
+            this.router.navigate(['auth/verification']);
+          }
 
-      if(!this.validInput){
-        // this.validInput = false;
-        this.router.navigate(['auth/double']);
-      }
+        },
+        (error) => {
+          this.invalidInput = true ;
+        }
+      );
+    } else {
+      console.log("Usuario invalido");
     }
   }
-
-  // async signIn(){
-  //   try {
-  //     const user = await Auth.signIn(this.email, this.password);
-  //     console.log(user);
-  //   } catch (error) {
-  //     console.log('Error signing in:', error);
-  //   }
-  // }
-
-  logout(){
-    this.authService.logout();
-  }
-
 }

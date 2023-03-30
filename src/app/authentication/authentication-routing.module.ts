@@ -4,6 +4,10 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { DoubleAuthComponent } from './double-auth/double-auth.component';
+import { VerificationComponent } from './verification/verification.component';
+import { VerificationGuard } from '../guards/verification.guard';
+import { AuthGuard } from '../guards/auth.guard';
+import { DoubleAuthGuard } from '../guards/double-auth.guard';
 
 const routes: Routes = [
   {
@@ -21,7 +25,13 @@ const routes: Routes = [
   },
   {
     path: 'double',
-    component: DoubleAuthComponent
+    component: DoubleAuthComponent,
+    canActivate: [DoubleAuthGuard]
+  },
+  {
+    path: 'verification',
+    component: VerificationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'**',

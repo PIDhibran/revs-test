@@ -26,6 +26,10 @@ export class DoubleAuthComponent {
     });
   }
 
+  getUser(){
+    console.log(this.authService.getUser());
+  }
+
   submitForm(){
     const code = this.form.get('token')?.value;
     const correctToken = this.authService.verifyTokenDoubleAuth(code);

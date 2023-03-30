@@ -1,17 +1,17 @@
 <main>
-  <h2 class="title">Sign in aaaaaa</h2>
+  <h2 class="title">Sign in</h2>
   <p>Need a acount? <a routerLink="/auth/signup">Sign up</a> </p>
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
+  <form [formGroup]="signInForm" (ngSubmit)="submitForm()">
     <label>
       Email:
-      <input type="email" formControlName="email">
+      <input type="text" formControlName="email">
       <span *ngIf="validEmail">Please enter a valid email address</span>
     </label>
     <label>
       Password:
       <input type="password" formControlName="password">
     </label>
-    <span *ngIf="validInput">Password and email incorrect</span>
-    <button type="submit">Sign up</button>
+    <span *ngIf="invalidInput">Password and email incorrect</span>
+    <button type="submit">Login</button>
   </form>
 </main>

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { VerificationGuard } from './guards/verification.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
-    canActivate: [AuthGuard]
+    canActivate: [VerificationGuard, AuthGuard]
   },
   {
     path: '**',

@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { DoubleAuthComponent } from './double-auth/double-auth.component';
+import { VerificationComponent } from './verification/verification.component';
 
 
 @NgModule({
   declarations: [
     SigninComponent,
     SignupComponent,
-    DoubleAuthComponent
+    DoubleAuthComponent,
+    VerificationComponent
   ],
   imports: [
     CommonModule,

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
  import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NewUser, User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,7 +18,6 @@ export class SignupComponent{
   validEmail: boolean = false;
   validPassword: boolean = false;
   validConfirmPassword: boolean = false;
-  newUser: NewUser | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -53,24 +52,12 @@ export class SignupComponent{
       const email = this.form.get('email')?.value;
       const password = this.form.get('password')?.value;
 
-      this.newUser = this.saveCreatedUser(username, email, password);
-
-      this.authService.signIn(username, email, password);
-
-      // console.log(this.newUser);
+      this.authService.signUp(username, email, password);
     }
   }
 
 
 
-  private saveCreatedUser(username:string, email:string, password:string): NewUser{
-    const newUser: NewUser = {
-      username: username,
-      email: email,
-      password: password
-    };
 
-    return newUser;
-  }
 
 }

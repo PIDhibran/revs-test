@@ -12,6 +12,8 @@ export class DashboardComponent {
   ){}
 
   signOut() {
-    this.authService.logout();
+    this.authService.signOut();
+    this.authService.setEmailVerify(false);
+    this.authService.setLogged(false);
   }
 }

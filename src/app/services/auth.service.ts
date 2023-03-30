@@ -50,7 +50,7 @@ export class AuthService {
       const user = await Auth.signIn(username, password);
 
       this.logged = true;
-      this.user = this.saveUser(user);
+      // this.user = this.saveUser(user);
       this.router.navigate(['/dashboard']);
 
     } catch (error) {

@@ -26,15 +26,24 @@ export class VerificationComponent {
     });
   }
 
-  checkVerifyCode(){
-    if(this.verifyForm.valid){
-      const code = this.verifyForm.get('code')?.value;
+  // checkVerifyCode(){
+  //   if(this.verifyForm.valid){
+  //     const code = this.verifyForm.get('code')?.value;
 
-      if(code === "123456"){
-        this.authService.setEmailVerify(true);
-        this.router.navigate(['/dashboard'])
-      }
-        this.authService.setEmailVerify(false);
+  //     if(code === "123456"){
+  //       this.authService.setEmailVerify(true);
+  //       this.router.navigate(['/dashboard'])
+  //     }
+  //       this.authService.setEmailVerify(false);
+  //   }
+  // }
+
+  verifyEmail(){
+    if(this.verifyForm.valid){
+      const code =  this.verifyForm.get('code')?.value;
+      debugger
+      this.authService.confirmVerification(code)
+    ;
     }
   }
 
@@ -42,7 +51,4 @@ export class VerificationComponent {
     this.authService.resendValidateCode();
   }
 
-  submitForm(){
-    console.log("Send");
-  }
 }

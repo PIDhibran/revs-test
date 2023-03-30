@@ -42,15 +42,15 @@ export class SigninComponent {
       this.authService.signIn(email, password)
       .subscribe(
         (user) => {
-          debugger
           console.log(user);
           this.authService.setLogged(true);
-          if(this.authService.isEmailVerify()){
-            this.router.navigate(['auth/double'])
-          } else {
-            this.router.navigate(['auth/verification']);
-          }
 
+          // if(this.authService.isEmailVerify()){
+          //   this.router.navigate(['auth/double'])
+          // } else {
+          //   this.router.navigate(['auth/verification']);
+          // }
+          this.router.navigate(['dashboard']);
         },
         (error) => {
           this.invalidInput = true ;

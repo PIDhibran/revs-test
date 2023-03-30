@@ -17,10 +17,11 @@ export class VerificationGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if(this.authService.isEmailVerify()){
-        return true;
-      }
-      this.location.back();
-      return false;
+      // if(this.authService.isEmailVerify()){
+      //   return true;
+      // }
+      // this.location.back();
+      // return false;
+      return true;
   }
 }

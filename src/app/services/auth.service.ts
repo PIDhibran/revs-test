@@ -12,7 +12,8 @@ import { Auth } from 'aws-amplify';
 export class AuthService {
   private logged: boolean = false;
   private emailVerified: boolean = false;
-  private user: User | LoggedUser | null = null ;
+  private user: User |  null = null ;
+  userExists = false;
 
 
   constructor(
@@ -30,9 +31,12 @@ export class AuthService {
           nickname: username
         },
       });
-      console.log("enviado");
+      console.log("User register successfully");
       console.log(user);
+      this.user = this.saveNewUser(user);
+      this.router.navigate(['auth/verification']);
     } catch (error) {
+      this.userExists = true;
       console.log('Error signing in:', error);
     }
   }
@@ -43,6 +47,7 @@ export class AuthService {
       Auth.signIn(email, password).then(
         (response) => {
           this.logged = true;
+          console.log(response);
           this.user = this.saveUser(response);
 
           observer.next('success');
@@ -70,30 +75,44 @@ export class AuthService {
     // console.log("verify:", response.attributes.email_verified);
   }
 
-  validateUser(username:string, code:string): Observable<string> {
-    return new Observable( observer => {
-      Auth.confirmSignUp(username, code).then(
-        (response) => {
-          console.log(response);
-          observer.next('success');
-          observer.complete();
-        },
-        (error) => {
-          observer.error(error);
-        }
-      )
-    });
-    // try {
-    //   await Auth.confirmSignUp(username, code);
-    // } catch (error) {
-    //   console.log('error confirming sign up', error);
-    // }
+  saveNewUser(user:any):User{
+    const newUser: User =  {
+      username: user.user.username
+    }
+
+    return newUser;
+  }
+
+  // validateUser(username:string, code:string): Observable<string> {
+  //   return new Observable( observer => {
+  //     Auth.confirmSignUp(username, code).then(
+  //       (response) => {
+  //         console.log(response);
+  //         observer.next('success');
+  //         observer.complete();
+  //       },
+  //       (error) => {
+  //         observer.error(error);
+  //       }
+  //     )
+  //   });
+  // }
+
+  async confirmVerification(code:string) {
+    console.log(this.user);
+    if(this.user !== null){
+      try {
+        await Auth.confirmSignUp(this.user.username, code);
+      } catch (error) {
+        console.log('error confirming sign up', error);
+      }
+    }
   }
 
   async resendValidateCode(){
     if(this.user !== null){
       try {
-        await Auth.resendSignUp("pavel");
+        await Auth.resendSignUp(this.user.username);
         console.log('code resent successfully');
       } catch (err) {
         console.log('error resending code: ', err);

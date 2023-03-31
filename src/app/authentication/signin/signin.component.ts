@@ -12,7 +12,8 @@ templateUrl: './signin.component.html',
 })
 export class SigninComponent {
   signInForm: FormGroup = new FormGroup('');
-  validEmail: boolean | undefined = false;
+  invalidEmail: boolean | undefined = false;
+  invalidPassword: boolean | undefined = false;
   invalidInput: boolean | undefined = false;
   user: User | null = null;
 
@@ -29,19 +30,31 @@ export class SigninComponent {
 
   createForm() {
     this.signInForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
 
-  submitSignInForm() {
-    this.validEmail = this.signInForm.get('username')?.invalid;
+  async submitSignInForm() {
+    this.invalidInput = false;
+    this.invalidEmail = this.signInForm.get('email')?.invalid;
+    this.invalidPassword = this.signInForm.get('password')?.invalid;
+    // Si el formulario tiene datos validos en los input, entra al if
     if(this.signInForm.valid){
-      const username = this.signInForm.get('username')?.value;
+      const email = this.signInForm.get('email')?.value;
       const password = this.signInForm.get('password')?.value;
-      this.authService.signIn(username, password);
-    } else {
-      console.log("Usuario invalido");
+      // Ejecuta la funcion de signin
+      this.authService.signIn(email, password)
+      .subscribe(
+        (user) => {
+          this.invalidInput = false;
+        },
+        (error) => {
+          this.invalidInput = true ;
+          console.error(error);
+        }
+      );
     }
+
   }
 }

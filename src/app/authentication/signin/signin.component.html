@@ -4,14 +4,15 @@
   <form [formGroup]="signInForm" (ngSubmit)="submitSignInForm()">
     <label>
       Email:
-      <input type="text" formControlName="username">
-      <span *ngIf="validEmail">Please enter a valid email address</span>
+      <input type="text" formControlName="email">
+      <span *ngIf="invalidEmail">Email required</span>
     </label>
     <label>
       Password:
       <input type="password" formControlName="password">
     </label>
-    <span *ngIf="invalidInput">Password and email incorrect</span>
+    <span *ngIf="invalidPassword">Password required</span>
     <button type="submit">Login</button>
+    <span *ngIf="invalidInput">Password and email incorrect</span>
   </form>
 </main>

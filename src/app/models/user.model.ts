@@ -1,13 +1,5 @@
 export interface User {
-  username:string;
-  email?: string;
-
-}
-
-export interface LoggedUser extends User {
   token:string;
+  email:string;
 }
 
-// export interface newUser {
-//   username: string;
-// }

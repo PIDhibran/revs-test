@@ -3,9 +3,11 @@
     <label>
       Enter your verification code:
       <input type="text" formControlName="code">
-      <p *ngIf="tokenInvalid">Tu codigo es incorrecto</p>
+      <span *ngIf="invalidCode">Invalid code</span>
+      <span *ngIf="requiredCode">Code required</span>
     </label>
     <button type="submit">Send</button>
   </form>
   <button (click)="resendCode()">Resend code</button>
+  <span *ngIf="invalidResendCode">Your code is in your mail</span>
 </main>

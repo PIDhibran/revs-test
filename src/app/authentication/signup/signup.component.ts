@@ -6,7 +6,7 @@ import { Auth } from 'aws-amplify';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { ConfirmPasswordValidator } from 'src/app/validators/confirm-password.validator';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,10 +14,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SignupComponent{
   formSignUp: FormGroup =  new FormGroup("");
-  validName: boolean = false;
-  validEmail: boolean = false;
-  validPassword: boolean = false;
-  validConfirmPassword: boolean = false;
+  invalidName: boolean | undefined = false;
+  invalidEmail: boolean | undefined = false;
+  invalidPassword: boolean | undefined = false;
+  invalidConfirmPassword: boolean | undefined  = false;
+  invalidPasswordsMatch: boolean | undefined = false;
+  userExists: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -31,29 +34,54 @@ export class SignupComponent{
     this.formSignUp = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, this.confirmPasswordValidator]],
-    },);
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, this.passwordConfirming]],
+    }, {
+
+    });
   }
 
-  // Verificar porque no jala este validador
-  private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password =  control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-
-    if (password?.value !== confirmPassword?.value) {
-      return { 'passwordMismatch': true };
+  private passwordConfirming(control: AbstractControl): any {
+    if (control && control.parent) {
+      const password = control.parent.get('password');
+      const confirmPassword = control.parent.get('confirmPassword');
+      if (!password || !confirmPassword) {
+        return null;
+      }
+      return password.value === confirmPassword.value ? null : { passwordNotMatch: true };
     }
     return null;
   }
 
+
   submitSignUpForm(){
+    this.invalidEmail = this.formSignUp.get('email')?.invalid;
+    this.invalidName = this.formSignUp.get('username')?.invalid;
+    this.invalidPassword = this.formSignUp.get('password')?.invalid;
+    this.invalidConfirmPassword = this.formSignUp.get('confirmPassword')?.invalid;
+    this.userExists = false;
+    // Crear validador para las dos passwords
+
+
     if(this.formSignUp.valid){
       const username = this.formSignUp.get('username')?.value;
       const email = this.formSignUp.get('email')?.value;
       const password = this.formSignUp.get('password')?.value;
+      console.log("username: " , username);
+      console.log("email: " , email);
+      console.log("password: " , password);
 
-      this.authService.signUp(username, email, password);
+      this.authService.signUp(username, email, password)
+      .subscribe(
+        (user) => {
+          // console.log(user);
+          this.userExists = false;
+        },
+        (error) => {
+          this.userExists = true;
+          // console.log(error);
+        }
+      );
     }
   }
 }

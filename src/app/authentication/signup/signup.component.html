@@ -5,20 +5,26 @@
     <label>
       Username:
       <input type="text" formControlName="username">
+      <span *ngIf="invalidName">Username is required</span>
     </label>
     <label>
       Email:
       <input type="email" formControlName="email">
-      <!-- <span *ngIf="validEmail">Please enter a valid email address</span> -->
+      <span *ngIf="invalidEmail">Email is required</span>
     </label>
     <label>
       Password:
       <input type="password" formControlName="password">
+      <span *ngIf="invalidPassword">Password is required</span>
     </label>
     <label>
       Confirm Password:
       <input type="password" formControlName="confirmPassword">
+      <span *ngIf="invalidConfirmPassword">Confirm Password is required</span>
+      <span *ngIf="formSignUp.get('confirmPassword')?.errors?.['passwordNotMatch']">Passwords do not match</span>
     </label>
-    <button type="submit" >Sign up</button>
+    <p>Already registered? <a routerLink="/auth/signin">Login</a> </p>
+    <button type="submit">Sign up</button>
+    <span *ngIf="userExists">User already exists</span>
   </form>
 </main>

@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class VerificationComponent {
   verifyForm: FormGroup = new FormGroup('');
-  tokenInvalid: boolean = false;
+  requiredCode: boolean | undefined = false
+  invalidResendCode: boolean = false;
+  invalidCode: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,29 +28,37 @@ export class VerificationComponent {
     });
   }
 
-  // checkVerifyCode(){
-  //   if(this.verifyForm.valid){
-  //     const code = this.verifyForm.get('code')?.value;
-
-  //     if(code === "123456"){
-  //       this.authService.setEmailVerify(true);
-  //       this.router.navigate(['/dashboard'])
-  //     }
-  //       this.authService.setEmailVerify(false);
-  //   }
-  // }
-
   verifyEmail(){
+    this.invalidCode =  this.verifyForm.get('code')?.invalid;
     if(this.verifyForm.valid){
       const code =  this.verifyForm.get('code')?.value;
-      debugger
+      console.log(code);
       this.authService.confirmVerification(code)
-    ;
+      .subscribe(
+        (response) => {
+          console.log(response)
+          this.invalidCode = false;
+        },
+        (error) => {
+          this.invalidCode = true;
+          console.log(error)
+        }
+      );
     }
   }
 
   resendCode(){
-    this.authService.resendValidateCode();
+    debugger
+    this.authService.resendValidateCode()
+    .subscribe(
+      (response) => {
+        console.log("response", response);
+        this.invalidResendCode = false;
+      },
+      (error) => {
+        this.invalidResendCode = true;
+        console.log(error);
+      }
+    );
   }
-
 }

@@ -14,19 +14,16 @@
             required
             placeholder="Username*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
-          <p class="text-red text-sm md:text-base" >Username is required</p>
+          <p *ngIf="invalidUsername" class="text-red text-sm md:text-base" >Username is required</p>
         </div>
         <div class="flex flex-col my-4 md:my-6">
-          <!-- <div class="relative">
-            <label for="pass" class="text-sm outline-none absolute pl-3 z-10 -top-2 text-light-gray font md:text-base md:-top-3">Email*</label>
-          </div> -->
           <input
             type="email"
             formControlName="email"
             required
             placeholder="Email*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
-          <p class="text-red text-sm md:text-base">Email is required</p>
+          <p *ngIf="invalidEmail" class="text-red text-sm md:text-base">Email is required</p>
         </div>
         <div class="flex flex-col my-4 md:my-6">
           <input
@@ -35,7 +32,7 @@
             required
             placeholder="Password*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
-          <p class="text-red text-sm md:text-base" >Password is required</p>
+          <p *ngIf="invalidPassword" class="text-red text-sm md:text-base" >Password is required</p>
         </div>
         <div class="flex flex-col my-4 md:my-6">
           <input
@@ -44,9 +41,9 @@
             required
             placeholder="Confirm Password*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
-          <p class="text-red text-sm md:text-base" >Confirm password is required</p>
-          <p class="text-red text-sm md:text-base" >Passwords do not match</p>
-          <p class="text-red text-sm md:text-base">User already registered</p>
+          <p *ngIf="invalidConfirmPassword" class="text-red text-sm md:text-base" >Confirm password is required</p>
+          <p *ngIf="signUpForm.get('confirmPassword')?.errors?.['passwordNotMatch']" class="text-red text-sm md:text-base" >Passwords do not match</p>
+          <p *ngIf="userExists" class="text-red text-sm md:text-base">User already registered</p>
         </div>
         <p class="w-full md:text-lg">Already registered?
           <a routerLink="/auth/signin" class="text-blue pl-1 font-bold hover:underline hover:cursor-pointer">Login</a></p>

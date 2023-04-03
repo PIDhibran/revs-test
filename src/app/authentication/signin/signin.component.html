@@ -1,0 +1,43 @@
+<main class="w-screen h-screen flex" >
+  <section class="hidden lg:block lg:w-1/2 ">
+    <div class="img-signup"></div>
+  </section>
+  <section class="flex w-full mt-28 lg:w-1/2">
+    <article class="w-10/12 md:w-7/12 mx-auto ">
+      <h2 class="font-bold text-3xl mb-1 text-black md:text-4xl">Welcome to Revs</h2>
+      <p class="text-light-gray font-normal mb-8 text-sm md:text-xl">Need an account?
+        <a class="text-blue font-semibold text-base ml-1 md:text-xl" routerLink="/signup">Sign Up</a>
+      </p>
+      <h2 class="font-semibold text-black mb-5 text-2xl md:text-3xl">Sign in</h2>
+      <form>
+        <div class="flex flex-col my-4 md:my-6">
+          <div class="relative">
+            <label for="username-id" class="text-sm outline-none absolute pl-3 z-10 -top-2 text-light-gray font md:text-base md:-top-3 ">Username</label>
+            <input type="email" name="username" id="username-id" required class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
+          </div>
+          <p class="text-red text-sm md:text-base" >Username is required</p>
+        </div>
+        <div class="flex flex-col my-4 md:my-6">
+          <div class="relative">
+            <label for="pass" class="text-sm outline-none absolute pl-3 z-10 -top-2 text-light-gray font md:text-base md:-top-3">Password</label>
+            <input type="password" name="pass" id="pass" required class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
+          </div>
+          <p class="text-red text-sm md:text-base">Password is required</p>
+          <p class="text-red text-sm md:text-base">User do not exits</p>
+        </div>
+        <div class="flex mb-6">
+          <div class="flex items-center w-1/2">
+            <input type="checkbox" name="remember-me" id="remember-me-id" class="w-4 h-4 md:w-5 md:h-5">
+            <label for="remember-me-id" class="text-gray ml-2 md:text-lg">Remember me</label>
+          </div>
+          <div class="w-1/2 text-right">
+            <a routerLink="" class="text-blue font-bold text-base md:text-lg">Forgot Password?</a>
+          </div>
+        </div>
+        <div class="w-full">
+          <button class="bg-purple w-full my-2 text-white text-base font-semibold h-12 rounded-md md:h-14 md:text-lg">Login</button>
+        </div>
+      </form>
+    </article>
+  </section>
+</main>

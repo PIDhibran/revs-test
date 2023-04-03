@@ -6,18 +6,18 @@ import { SignupComponent } from './authentication/signup/signup.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'sigin',
+    redirectTo: 'signin',
     pathMatch: 'full'
   },
   {
-    path: 'sigin',
+    path: 'signin',
     component: SigninComponent
   },
   {
     path: 'signup',
     component: SignupComponent
   },
-  
+
 ];
 
 @NgModule({

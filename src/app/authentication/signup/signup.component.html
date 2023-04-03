@@ -6,10 +6,11 @@
     <article class="w-10/12 md:w-7/12 mx-auto ">
       <h2 class="font-bold text-3xl mb-1 text-black md:text-4xl">Sign Up</h2>
       <p class="text-light-gray font-normal mb-8 text-sm md:text-xl">Enter details to create your account</p>
-      <form>
+      <form [formGroup]="signUpForm" (ngSubmit)="submitSignUpForm()">
         <div class="flex flex-col my-4 md:my-6">
           <input
-            type="email"
+            type="text"
+            formControlName="username"
             required
             placeholder="Username*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
@@ -20,7 +21,8 @@
             <label for="pass" class="text-sm outline-none absolute pl-3 z-10 -top-2 text-light-gray font md:text-base md:-top-3">Email*</label>
           </div> -->
           <input
-            type="password"
+            type="email"
+            formControlName="email"
             required
             placeholder="Email*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
@@ -28,7 +30,8 @@
         </div>
         <div class="flex flex-col my-4 md:my-6">
           <input
-            type="email"
+            type="password"
+            formControlName="password"
             required
             placeholder="Password*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
@@ -36,7 +39,8 @@
         </div>
         <div class="flex flex-col my-4 md:my-6">
           <input
-            type="email"
+            type="password"
+            formControlName="confirmPassword"
             required
             placeholder="Confirm Password*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
@@ -46,7 +50,7 @@
         </div>
         <p class="w-full md:text-lg">Already registered?
           <a routerLink="/auth/signin" class="text-blue pl-1 font-bold hover:underline hover:cursor-pointer">Login</a></p>
-        <button routerLink="/auth/verification" class="bg-purple text-white w-full my-2 text-base font-semibold h-12 rounded-md md:h-14 md:text-lg">Register</button>
+        <button class="bg-purple text-white w-full my-2 text-base font-semibold h-12 rounded-md md:h-14 md:text-lg">Register</button>
       </form>
     </article>
   </section>

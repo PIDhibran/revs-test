@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { SigninComponent } from './authentication/signin/signin.component';
-import { VerificationComponent } from './verification/verification.component';
+import { VerificationComponent } from './authentication/verification/verification.component';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 <main class="w-screen h-screen flex" >
   <section class="hidden lg:block lg:w-1/2 ">
-    <div class="img-signup"></div>
+    <div class="border h-full w-full"></div>
   </section>
   <section class="flex w-full mt-20 lg:w-1/2">
     <article class="w-10/12 md:w-7/12 mx-auto ">
@@ -10,8 +10,6 @@
         <div class="flex flex-col my-4 md:my-6">
           <input
             type="email"
-            name="username"
-            id="username-id"
             required
             placeholder="Username*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
@@ -23,34 +21,22 @@
           </div> -->
           <input
             type="password"
-            name="pass"
-            id="pass"
             required
             placeholder="Email*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
           <p class="text-red text-sm md:text-base">Email is required</p>
         </div>
         <div class="flex flex-col my-4 md:my-6">
-          <!-- <div class="relative">
-            <label for="username-id" class="text-sm outline-none absolute pl-3 z-10 -top-2 text-light-gray font md:text-base md:-top-3 ">Password*</label>
-          </div> -->
           <input
             type="email"
-            name="username"
-            id="username-id"
             required
             placeholder="Password*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
           <p class="text-red text-sm md:text-base" >Password is required</p>
         </div>
         <div class="flex flex-col my-4 md:my-6">
-          <!-- <div class="relative">
-            <label for="username-id" class="text-sm outline-none absolute pl-3 z-10 -top-2 text-light-gray font md:text-base md:-top-3 ">Confirm Password*</label>
-          </div> -->
           <input
             type="email"
-            name="username"
-            id="username-id"
             required
             placeholder="Confirm Password*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
@@ -59,8 +45,8 @@
           <p class="text-red text-sm md:text-base">User already registered</p>
         </div>
         <p class="w-full md:text-lg">Already registered?
-          <a routerLink="/signin" class="text-blue pl-1 font-bold hover:underline hover:cursor-pointer">Login</a></p>
-        <button routerLink="/verification" class="bg-purple text-white w-full my-2 text-base font-semibold h-12 rounded-md md:h-14 md:text-lg">Register</button>
+          <a routerLink="/auth/signin" class="text-blue pl-1 font-bold hover:underline hover:cursor-pointer">Login</a></p>
+        <button routerLink="/auth/verification" class="bg-purple text-white w-full my-2 text-base font-semibold h-12 rounded-md md:h-14 md:text-lg">Register</button>
       </form>
     </article>
   </section>

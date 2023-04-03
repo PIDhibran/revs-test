@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { SigninComponent } from './authentication/signin/signin.component';
 import { VerificationComponent } from './authentication/verification/verification.component';
+import { NotFoundComponent } from './not-found/not-found/not-found.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    SigninComponent,
-    VerificationComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

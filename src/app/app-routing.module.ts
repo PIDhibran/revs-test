@@ -1,31 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SigninComponent } from './authentication/signin/signin.component';
-import { SignupComponent } from './authentication/signup/signup.component';
-import { VerificationComponent } from './authentication/verification/verification.component';
-import { DoubleAuthComponent } from './authentication/double-auth/double-auth.component';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { NotFoundComponent } from './not-found/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'signin',
+    redirectTo: 'auth/signin',
     pathMatch: 'full'
   },
   {
-    path: 'signin',
-    component: SigninComponent
+    path: 'auth',
+    loadChildren: () =>
+      import('./authentication/authentication.module').then(
+        (m) => m.AuthenticationModule
+      ),
   },
   {
-    path: 'signup',
-    component: SignupComponent
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
   },
   {
-    path: 'verification',
-    component: VerificationComponent
-  },
-  {
-    path: '2fa',
-    component: DoubleAuthComponent
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 

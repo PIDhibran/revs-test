@@ -65,6 +65,7 @@ export class SignupComponent {
       this.authService.signUp(username, email, password)
       .subscribe(
         (response) => {
+          console.log(response);
           this.userExists = false;
         },
         (error) => {

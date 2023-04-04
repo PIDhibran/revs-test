@@ -42,7 +42,8 @@ export class SigninComponent {
       // Ejecuta la funcion de signin
       this.authService.signIn(email, password)
       .subscribe(
-        (user) => {
+        (response) => {
+          console.log(response)
           this.invalidInput = false;
         },
         (error) => {

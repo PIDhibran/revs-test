@@ -31,7 +31,7 @@ export class SigninComponent {
     });
   }
 
-  async submitSignInForm() {
+  submitSignInForm() {
     this.invalidInput = false;
     this.invalidEmail = this.signInForm.get('email')?.invalid;
     this.invalidPassword = this.signInForm.get('password')?.invalid;
@@ -44,7 +44,7 @@ export class SigninComponent {
       .subscribe(
         (response) => {
           console.log(response)
-          this.invalidInput = false;
+          this.router.navigate(['auth/2fa'])
         },
         (error) => {
           this.invalidInput = true ;

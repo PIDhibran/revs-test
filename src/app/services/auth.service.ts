@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
 export class AuthService {
   private logged: boolean = false;
   private emailVerified: boolean = false;
-  private user: User = { token: "", email: "", username: ""};
-  private userExists: boolean = false;
 
   constructor(
     private router:Router
@@ -31,19 +29,14 @@ export class AuthService {
         (response) => {
           this.logged = true;
 
-          const user = this.saveUser("", email, username);
-          this.user = user;
-          localStorage.setItem('user', JSON.stringify(user))
+          this.saveUser("", email, username);
           this.router.navigate(['auth/verification']);
-
-
 
           observer.next(response);
           observer.complete();
         },
         (error) => {
           this.logged = false;
-          this.userExists = true;
           observer.error(error);
         }
       );
@@ -55,8 +48,7 @@ export class AuthService {
     return new Observable(observer => {
       Auth.signIn(username, password).then(
         (response) => {
-          this.logged = true;
-          this.user = this.saveUser("", username);
+          this.saveUser('', '', response.username)
 
           observer.next(response);
           observer.complete();
@@ -70,18 +62,6 @@ export class AuthService {
   }
 
 
-  saveUser(token:string, email:string = '', username:string = ''):User{
-    const newUser: User =  {
-      token: token,
-      email: '',
-      username: ''
-    }
-    // Si el email tiene un valor, se le asigna al objeto
-      newUser.email = email;
-      newUser.username = username;
-
-    return newUser;
-  }
 
   // Verificaction
   confirmVerification(code:string):Observable<any> {
@@ -96,15 +76,14 @@ export class AuthService {
         (error) => {
           observer.error(error);
         }
-      );
-    });
-  }
+        );
+      });
+    }
 
   resendValidateCode(): Observable<any>{
     const user:any = this.getSaveUser();
-
     return new Observable(observer => {
-      Auth.resendSignUp(user.email).then(
+      Auth.resendSignUp(user.username).then(
         (response) => {
           observer.next(response)
           observer.complete()
@@ -112,19 +91,38 @@ export class AuthService {
         (error) => {
           observer.error(error);
         }
-      )
-    });
+        )
+      });
+    }
+
+  saveUser(token:string, email:string = '', username:string = ''){
+    const newUser: User =  {
+      token: token,
+      email: email,
+      username: username
+    }
+    localStorage.setItem('user', JSON.stringify(newUser))
   }
 
   getSaveUser(){
     let user:any = localStorage.getItem('user');
     if(user){
       user = JSON.parse(user);
-    } else {
-      user = this.saveUser("", "", "");
     }
     console.log(user);
     return user;
+  }
+
+  deleteSaveUser(){
+    localStorage.removeItem('user');
+  }
+
+  isLogged(){
+    const user = this.getSaveUser();
+    if(user){
+      return true;
+    }
+    return false;
   }
 
 }

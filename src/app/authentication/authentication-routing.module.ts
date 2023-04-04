@@ -4,6 +4,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { VerificationComponent } from './verification/verification.component';
 import { DoubleAuthComponent } from './double-auth/double-auth.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -21,11 +22,13 @@ const routes: Routes = [
   },
   {
     path: 'verification',
-    component: VerificationComponent
+    component: VerificationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '2fa',
-    component: DoubleAuthComponent
+    component: DoubleAuthComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

@@ -34,19 +34,16 @@ export class VerificationComponent {
     this.invalidCode = false;
     if(this.verifyForm.valid){
       const code =  this.verifyForm.get('code')?.value;
-      console.log(code);
-
-
       this.authService.confirmVerification(code)
       .subscribe(
         (response) => {
-          localStorage.removeItem('user');
+          this.authService.deleteSaveUser();
           this.router.navigate(['dashboard']);
-          console.log(response)
+          // console.log(response)
         },
         (error) => {
           this.invalidCode = true;
-          console.log(error)
+          // console.log(error)
         }
       );
     }
@@ -60,11 +57,11 @@ export class VerificationComponent {
     .subscribe(
       (response) => {
         this.invalidResendCode = true;
-        console.log(response);
+        // console.log(response);
       },
       (error) => {
         this.validResendCode = true;
-        console.log(error);
+        // console.log(error);
       }
     );
   }

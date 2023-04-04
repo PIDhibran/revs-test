@@ -10,6 +10,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class VerificationComponent {
   verifyForm: FormGroup = new FormGroup('');
+  requiredCode: boolean | undefined = false;
+  validResendCode: boolean | undefined = false;
+  invalidResendCode: boolean = false;
+  invalidCode: boolean | undefined = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +30,8 @@ export class VerificationComponent {
   }
 
   verifyEmail(){
+    this.requiredCode = this.verifyForm.get('code')?.invalid;
+    this.invalidCode = false;
     if(this.verifyForm.valid){
       const code =  this.verifyForm.get('code')?.value;
       console.log(code);
@@ -39,6 +45,7 @@ export class VerificationComponent {
           console.log(response)
         },
         (error) => {
+          this.invalidCode = true;
           console.log(error)
         }
       );
@@ -46,12 +53,17 @@ export class VerificationComponent {
   }
 
   resendCode(){
+    this.validResendCode = false;
+    this.invalidResendCode = false;
+
     this.authService.resendValidateCode()
     .subscribe(
       (response) => {
+        this.invalidResendCode = true;
         console.log(response);
       },
       (error) => {
+        this.validResendCode = true;
         console.log(error);
       }
     );

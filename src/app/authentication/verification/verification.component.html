@@ -11,13 +11,15 @@
           required
           placeholder="Code*"
           class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
-        <p class="text-red text-sm md:text-base" >Code is required</p>
-        <p class="text-red text-sm md:text-base" >Invalid Code</p>
+        <p  *ngIf="requiredCode" class="text-red text-sm md:text-base" >Code is required</p>
+        <p  *ngIf="invalidCode" class="text-red text-sm md:text-base" >Invalid Code</p>
       </div>
       <a (click)="resendCode()" class="text-blue font-bold text-base hover:underline hover:cursor-pointer md:text-lg">
         Resend code
       </a>
-      <p class="text-green text-sm md:text-base" >Resend success</p>
+      <p *ngIf="invalidResendCode" class="text-green text-sm md:text-base" >Code send, please check your email</p>
+      <p *ngIf="validResendCode" class="text-red text-sm md:text-base" >Attempt limit exceeded, please try after some time.</p>
+
       <button class="bg-purple w-full my-2 text-white text-base font-semibold h-12 rounded-md md:h-14 md:text-lg">Send</button>
     </form>
   </section>

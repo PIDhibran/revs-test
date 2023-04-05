@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private logged: boolean = false;
   private emailVerified: boolean = false;
 
   constructor(
@@ -16,18 +15,18 @@ export class AuthService {
   ) { }
 
   //Sign Up
-  signUp(username:string, email: string, password:string):Observable<any>{
+  signUp(username:string, email: string, password:string, number:string):Observable<any>{
     return new Observable(observer => {
       Auth.signUp({
         username,
         password,
         attributes: {
           email,
-          nickname: username
+          nickname: username,
+          phone_number: `+52${number}`
         },
       }).then(
         (response) => {
-          this.logged = true;
 
           this.saveUser("", email, username);
           this.router.navigate(['auth/verification']);
@@ -36,7 +35,6 @@ export class AuthService {
           observer.complete();
         },
         (error) => {
-          this.logged = false;
           observer.error(error);
         }
       );
@@ -48,20 +46,29 @@ export class AuthService {
     return new Observable(observer => {
       Auth.signIn(username, password).then(
         (response) => {
-          this.saveUser('', '', response.username)
-
           observer.next(response);
           observer.complete();
         },
         (error) => {
-          this.logged = false;
           observer.error(error);
         }
       );
     });
   }
 
-
+  currentUser():Observable<any> {
+    return new Observable(observer => {
+      Auth.currentAuthenticatedUser().then(
+        (response) => {
+          observer.next(response);
+          observer.complete();
+        },
+        (error) => {
+          observer.error(error);
+        }
+      );
+    });
+  }
 
   // Verificaction
   confirmVerification(code:string):Observable<any> {
@@ -78,7 +85,7 @@ export class AuthService {
         }
         );
       });
-    }
+  }
 
   resendValidateCode(): Observable<any>{
     const user:any = this.getSaveUser();
@@ -93,7 +100,9 @@ export class AuthService {
         }
         )
       });
-    }
+  }
+
+
 
   saveUser(token:string, email:string = '', username:string = ''){
     const newUser: User =  {

@@ -26,7 +26,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '2fa',
+    path: 'two-fa',
     component: DoubleAuthComponent,
     canActivate: [AuthGuard]
   }

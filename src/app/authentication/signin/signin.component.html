@@ -13,11 +13,11 @@
         <div class="flex flex-col my-4 md:my-6">
           <input
             type="email"
-            formControlName="email"
+            formControlName="username"
             required
             placeholder="Username*"
             class="border-light-gray border rounded-md z-0 hover:outline-none hover:outline-transparent w-full h-12 pl-4 text-md md:h-14 md:text-base">
-          <p *ngIf="invalidEmail" class="text-red text-sm md:text-base" >Username is required</p>
+          <p *ngIf="invalidUsername" class="text-red text-sm md:text-base" >Username is required</p>
         </div>
         <div class="flex flex-col my-4 md:my-6">
           <input

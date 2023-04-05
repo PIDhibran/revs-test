@@ -16,6 +16,7 @@ export class SignupComponent {
   invalidPassword: boolean | undefined = false;
   invalidConfirmPassword: boolean | undefined  = false;
   invalidPasswordsMatch: boolean | undefined = false;
+  invalidNumber: boolean | undefined = false;
   userExists: boolean = false;
 
   constructor(
@@ -32,6 +33,7 @@ export class SignupComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, this.passwordConfirming]],
+      number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
   }
 
@@ -52,17 +54,20 @@ export class SignupComponent {
     this.invalidUsername = this.signUpForm.get('username')?.invalid;
     this.invalidPassword = this.signUpForm.get('password')?.invalid;
     this.invalidConfirmPassword = this.signUpForm.get('confirmPassword')?.invalid;
+    this.invalidNumber = this.signUpForm.get('number')?.invalid;
     this.userExists = false;
 
     if(this.signUpForm.valid){
       const username = this.signUpForm.get('username')?.value;
       const email = this.signUpForm.get('email')?.value;
       const password = this.signUpForm.get('password')?.value;
+      const number = this.signUpForm.get('number')?.value;
       console.log("username: " , username);
       console.log("email: " , email);
       console.log("password: " , password);
+      console.log("number", number)
 
-      this.authService.signUp(username, email, password)
+      this.authService.signUp(username, email, password, number)
       .subscribe(
         (response) => {
           console.log(response);

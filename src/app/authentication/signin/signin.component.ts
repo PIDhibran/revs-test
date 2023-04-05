@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'app-signin',
@@ -11,10 +12,10 @@ import { User } from 'src/app/models/user.model';
 })
 export class SigninComponent {
   signInForm: FormGroup = new FormGroup('');
-  invalidEmail: boolean | undefined = false;
+  invalidUsername: boolean | undefined = false;
   invalidPassword: boolean | undefined = false;
   invalidInput: boolean | undefined = false;
-  user: User | null = null;
+  user:User | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,32 +27,38 @@ export class SigninComponent {
 
   createForm() {
     this.signInForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  submitSignInForm() {
+  async submitSignInForm() {
     this.invalidInput = false;
-    this.invalidEmail = this.signInForm.get('email')?.invalid;
+    this.invalidUsername = this.signInForm.get('username')?.invalid;
     this.invalidPassword = this.signInForm.get('password')?.invalid;
     // Si el formulario tiene datos validos en los input, entra al if
     if(this.signInForm.valid){
-      const email = this.signInForm.get('email')?.value;
+      const username = this.signInForm.get('username')?.value;
       const password = this.signInForm.get('password')?.value;
-      // Ejecuta la funcion de signin
-      this.authService.signIn(email, password)
+      console.log(username);
+      console.log(password);
+
+      this.authService.signIn(username, password)
       .subscribe(
-        (response) => {
-          console.log(response)
-          this.router.navigate(['auth/2fa'])
+        (user) => {
+          // Por lo pronto direccionar
+          this.router.navigate(['dashboard'])
+          console.log(user)
         },
         (error) => {
           this.invalidInput = true ;
           console.error(error);
         }
-      );
-    }
+        );
 
+      const currentUser = await Auth.currentAuthenticatedUser();
+      const token = currentUser.signInUserSession.accessToken.jwtToken;
+      console.log(token);
+    }
   }
 }

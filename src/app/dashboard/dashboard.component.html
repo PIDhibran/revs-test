@@ -1,1 +1,109 @@
-<p>dashboard works!</p>
+<div (click)="onDocumentClick($event)" class="flex w-screen h-screen">
+  <!-- Side bard -->
+  <aside (click)="onDocumentClick($event)" class="fixed left-0 z-20 bg-white shadow-xl w-72 h-full overflow-x-hidden overflow-y-auto lg:block lg:sticky" [ngClass]="{'-left-72': hiddeAsideBar}" >
+    <div class="px-8 py-4">
+      <h2 class="text-black text-lg font-normal">Revs</h2>
+    </div>
+    <nav class="mt-2">
+      <div class="flex flex-col">
+        <h4 class="text-gray pl-4 py-2 mb-2 text-sm">Main</h4>
+        <a routerLink="/dashboard" routerLinkActive="bg-hover" class="bg-gray-600 text-gray px-4 py-2 mx-2 text-sm hover:bg-gray-500 hover:text-gray-100">
+          Dashboard
+        </a>
+        <a routerLink="/dashboard/users" routerLinkActive="bg-hover" class="bg-gray-600 text-gray px-4 py-2 m-2 text-sm hover:bg-gray-500 hover:text-gray-100">
+          Users
+        </a>
+      </div>
+    </nav>
+  </aside>
+  <!-- Dashboard -->
+  <main class="flex flex-col relative bg-dashboard w-full">
+    <!-- Header -->
+    <header class="box-border w-full px-6 py-4 rounded-sm">
+      <nav class="flex flex-row bg-white px-4 py-2 rounded-md">
+        <div class="container flex items-center lg:hidden">
+          <figure (click)="showSideBar()" class="px-5 py-2 hover:bg-dashboard rounded-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+          </figure>
+        </div>
+        <div class="container flex justify-end items-center">
+          <div class="flex items-center py-1 px-2 rounded-sm hover:bg-dashboard">
+            <span class="text-sm">Admin</span>
+            <img src="../../assets/images/user/admin.jpg" alt="user" class="w-8 h-8 rounded-full ml-3">
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Container -->
+    <section class="flex flex-col overflow-y-auto bg-gray-100 px-6">
+      <article class="container px-4 py-4">
+        <h2 class="text-gray-800 text-lg font-medium">Dashboard</h2>
+      </article>
+      <article class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4" >
+        <div class="flex flex-col relative bg-white rounded-md h-24 shadow">
+          <div class="absolute left-5 -top-3 w-10 h-10 bg-purple rounded-md">
+            <!-- Icono -->
+          </div>
+          <div class="flex flex-col justify-end mx-4 my-2">
+            <p class="text-base text-right">KPI</p>
+            <p class="text-base text-right">0</p>
+          </div>
+          <div class="flex items-center  mx-4 mb-2">
+            <p class="text-sm mr-2">0%</p>
+            <p class="text-sm">Increase</p>
+          </div>
+        </div>
+        <div class="flex flex-col relative bg-white rounded-md h-24 shadow">
+          <div class="absolute left-5 -top-3 w-10 h-10 bg-purple rounded-md">
+            <!-- Icono -->
+          </div>
+          <div class="flex flex-col justify-end mx-4 my-2">
+            <p class="text-base text-right">KPI</p>
+            <p class="text-base text-right">0</p>
+          </div>
+          <div class="flex items-center  mx-4 mb-2">
+            <p class="text-sm mr-2">0%</p>
+            <p class="text-sm">Increase</p>
+          </div>
+        </div>
+        <div class="flex flex-col relative bg-white rounded-md h-24 shadow">
+          <div class="absolute left-5 -top-3 w-10 h-10 bg-purple rounded-md">
+            <!-- Icono -->
+          </div>
+          <div class="flex flex-col justify-end mx-4 my-2">
+            <p class="text-base text-right">KPI</p>
+            <p class="text-base text-right">0</p>
+          </div>
+          <div class="flex items-center  mx-4 mb-2">
+            <p class="text-sm mr-2">0%</p>
+            <p class="text-sm">Increase</p>
+          </div>
+        </div>
+        <div class="flex flex-col relative bg-white rounded-md h-24 shadow">
+          <div class="absolute left-5 -top-3 w-10 h-10 bg-purple rounded-md">
+            <!-- Icono -->
+          </div>
+          <div class="flex flex-col justify-end mx-4 my-2">
+            <p class="text-base text-right">KPI</p>
+            <p class="text-base text-right">0</p>
+          </div>
+          <div class="flex items-center  mx-4 mb-2">
+            <p class="text-sm mr-2">0%</p>
+            <p class="text-sm">Increase</p>
+          </div>
+        </div>
+      </article>
+      <article class="grid grid-cols-1 gap-4 mt-6 mb-8 lg:grid-cols-12">
+        <div class="bg-white rounded-md h-96 shadow col-start-1 col-end-13 lg:col-end-9">
+          <!-- Poner la grafica -->
+        </div>
+        <div class="bg-white rounded-md h-96 shadow col-start-1 col-end-13 lg:col-start-9">
+          <!-- Poner la grafica -->
+        </div>
+      </article>
+    </section>
+  </main>
+</div>
+

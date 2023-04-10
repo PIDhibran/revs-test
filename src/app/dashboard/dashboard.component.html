@@ -1,4 +1,4 @@
-<div class="flex w-screen h-screen">
+<div class=" relative flex w-screen h-screen">
   <!-- Side bard -->
   <aside (click)="onDocumentClick($event)" class="fixed left-0 z-20 bg-white shadow-xl w-72 h-full overflow-x-hidden overflow-y-auto lg:block lg:sticky" [ngClass]="{'-left-72': hiddeAsideBar}" >
     <div class="px-8 py-4">
@@ -13,11 +13,14 @@
         <a routerLink="/dashboard/users" routerLinkActive="bg-hover" class="bg-gray-600 text-gray px-4 py-2 m-2 text-sm hover:bg-gray-500 hover:text-gray-100">
           Users
         </a>
+        <a routerLink="/dashboard/privileges" routerLinkActive="bg-hover" class="bg-gray-600 text-gray px-4 py-2 m-2 text-sm hover:bg-gray-500 hover:text-gray-100">
+          Privileges
+        </a>
       </div>
     </nav>
   </aside>
   <!-- Dashboard -->
-  <main class="flex flex-col relative bg-dashboard w-full">
+  <main class="flex flex-col bg-dashboard w-full">
     <!-- Header -->
     <header class="box-border w-full px-6 py-4 rounded-sm">
       <nav class="flex flex-row bg-white px-4 py-2 rounded-md">

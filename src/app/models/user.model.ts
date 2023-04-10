@@ -3,3 +3,8 @@ export interface User {
   email:string;
   username: string;
 }
+
+export interface Response{
+  body:any;
+  statusCode:string;
+}

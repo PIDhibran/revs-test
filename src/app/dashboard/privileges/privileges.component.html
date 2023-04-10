@@ -1,0 +1,22 @@
+<article class="container px-4 py-4">
+  <h2 class="text-gray-800 text-lg font-medium">Privileges</h2>
+</article>
+<article class="container w-full bg-white px-4 py-6 shadow box-border">
+  <div class="flex flex-col w-full box-border ">
+    <div class="flex h-full px-2 py-4 bg-title justify-items-center items-center z-10">
+      <p>Privileges</p>
+    </div>
+    <div class="grid grid-cols-12 h-full px-4 py-3 justify-items-center items-center">
+      <p class="col-start-2 col-end-4 px-2 font-bold">Username</p>
+      <p class="col-start-5 col-end-9 px-2 font-bold">Privileges</p>
+    </div>
+    <div *ngFor="let user of users" class="grid grid-cols-12 h-full px-4 py-3 justify-items-center items-center border-t-2 border-light-gray">
+      <p class="col-start-2 col-end-4 px-2">{{user.nickname}}</p>
+      <div class="flex justify-start col-start-6 col-end-9 px-2">
+        <p *ngFor="let priviliegie of user.priviliegies" class="mr-2">
+          {{priviliegie}}
+        </p>
+      </div>
+    </div>
+  </div>
+</article>

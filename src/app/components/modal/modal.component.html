@@ -1,0 +1,9 @@
+<div  *ngIf="visible" class="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen flex justify-center items-center bg-black z-30">
+  <div class="px-4 bg-white ">
+    <p>{{data.user_name}}</p>
+    <p>{{data.attr[1].Value}}</p>
+    <p>{{data.UserCreateDate}}</p>
+    <p>{{data.UserStatus}}</p>
+    <button (click)="closeModal()" class="bg-light-gray" >Cancel</button>
+  </div>
+</div>

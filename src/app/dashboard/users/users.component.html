@@ -1,0 +1,54 @@
+<article class="container px-4 py-4">
+  <h2 class="text-gray-800 text-lg font-medium">Users</h2>
+</article>
+<article class="container bg-white px-4 py-6 shadow box-border">
+  <div class="flex flex-col w-full box-border ">
+    <div class="flex h-full px-2 py-4 bg-title justify-items-center items-center z-10">
+      <p>Contacts</p>
+      <button class="bg-purple ml-4 p-1 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ffffff" class="" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="grid grid-cols-12 h-full px-4 py-3 justify-items-center items-center">
+      <p class="col-start-2 col-end-4 px-2 font-bold">Username</p>
+      <p class="col-start-4 col-end-7 px-2 font-bold">Email</p>
+      <p class="col-start-7 col-end-9 px-2 font-bold">Create Date</p>
+      <p class="col-start-10 col-end-12 px-2 font-bold">Status</p>
+      <p class="col-start-12 col-end-13 px-2 font-bold">Actions</p>
+    </div>
+    <div *ngFor="let user of users" class="grid grid-cols-12 h-full px-4 py-3 justify-items-center items-center border-t-2 border-light-gray">
+      <p class="col-start-2 col-end-4 px-2">{{user.user_name}}</p>
+      <p class="col-start-4 col-end-7 px-2"> {{user.attr[1].Value}} </p>
+      <p class="col-start-7 col-end-9 px-5 w-full overflow-hidden">{{user.UserCreateDate}}</p>
+      <p [ngClass]="user.UserStatus === 'CONFIRMED' ? 'bg-green': 'bg-red'" class="col-start-10 col-end-12 px-2 py-1 rounded-lg"> {{user.UserStatus}}</p>
+      <div class="relative hover:bg-title py-2 px-3 rounded-full">
+        <button (click)="openActionModal(user)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          </svg>
+        </button>
+        <ul class="absolute top-10 -left-28 w-44 bg-white shadow rounded-lg z-20" [ngClass]="showActionModal ? 'block' :'hidden'">
+          <li>
+            <button (click)="closeActionModal()" class="flex items-center hover:bg-title text-left w-full py-2 px-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
+                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+              </svg>
+              <span>Edit Contact</span>
+            </button>
+          </li>
+          <li>
+            <button (click)="closeActionModal()" class="flex items-center hover:bg-title text-left w-full py-2 px-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+              </svg>
+              <span>Delete Contact</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</article>
